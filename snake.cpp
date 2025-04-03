@@ -23,21 +23,25 @@ DLinkedList* SnakeDLL = NULL;
 // This function should initialize the Snake struct and populate its linked list with 10 SnakeItems.
 void snake_init()
 {   
-
-    // snake has already been created  thankfully
+    snake = (Snake*)malloc(sizeof(Snake));
+    // snake->snake_list;
     SnakeDLL = create_dlinkedlist();
     printf("Alright you created the SnakeDLL\n");
+    snake->snake_list = SnakeDLL;
+    
+    // SnakeDLL = create_dlinkedlist();
+    
     
     // for (int i = 0; i < 100; i++) {}
     // snake = ;
-    // snake->score = 0;
-    // snake->direction = NONE;
-    snake->length = 3;
-    // snake->previous_tail_position.x = 0;
-    // snake->previous_tail_position.y = 0;
-    // snake->boosted = 0;
+    snake->length = 10;
+    snake->score = 0;
+    snake->direction = NONE;
+    snake->previous_tail_position.x = 0;
+    snake->previous_tail_position.y = 0;
+    snake->boosted = 0;
     int xCoordinate = 1;
-    int yCoordinate = 1;
+    int yCoordinate = 8;
     
     // now that we have a new list, we can add all the items to it
     // Take a look at snake.h tclect i = 0; i < snake->length; i++) {
@@ -51,16 +55,24 @@ void snake_init()
         newItem->position.x = xCoordinate; // This is not correct lowkey
         newItem->position.y = yCoordinate;
         xCoordinate += 1; // I'm pretty sure I want to do ++ not += 8
-        yCoordinate += 1; // Like I'm pretty pretty sure
+        yCoordinate += 0; // Like I'm pretty pretty sure
         
         // I don't know what else
         printf("Before insertTail\n");
-        insertTail(SnakeDLL, newItem); // I have less than no clue how to use insertAfter with this list
+        insertHead(SnakeDLL, newItem); // I have less than no clue how to use insertAfter with this list
         // The data field of LLNode is newItem!
         printf("After insertTail\n");
     }
+    // printf("Snake is currently: %p\n", snake);
+    // printf("The snake->list is: %p\n", snake->snake_list);
+    // printf("The snake->snake_list as hex is %x\n ", snake->snake_list);
+    // snake->snake_list = 0;
+    // printf("The snake->list is: %p\n", snake->snake_list);
+    // printf("The snake->snake_list as hex is %x\n ", snake->snake_list);
+
+    
     // snake->length = 3;
-    // draw_snake(); //TODO Pretty sure I need to draw_snake
+    draw_snake(); //TODO Pretty sure I need to draw_snake
 }
 
 // 2035TODO
@@ -101,20 +113,22 @@ int function(int x, int y); // a function taking two int arguments and returning
 int (*pointer)(int x, int y); //  a pointer to such a function
 */
 void draw_snake(void) {
-    // LLNode* currItem = getHead(SnakeDLL);
-    // SnakeItem* currSnakeItem = (SnakeItem*) currItem->data; 
-    // for (int i = 0; i < snake->length; i++) {
-    //     // draw 10 items, thats a lot!
-    //     if (i == 0) { 
-    //         draw_snake_head(currSnakeItem->position.x, currSnakeItem->position.y); // I have no idea how to use that function pointer in items.h struct
-    //     } else  {
-    //         draw_snake_body(currSnakeItem->position.x, currSnakeItem->position.y);
-    //     }
-    //     currItem = currItem->next;
-    // }
-
-
-   
+    LLNode* currItem = getHead(SnakeDLL);
+    for (int i = 0; i < snake->length; i++) {
+        SnakeItem* currSnakeItem = (SnakeItem*) currItem->data;
+        // draw 10 items, thats a lot!
+        printf("CurrItem is %p\n", currItem);
+        printf("currSnakeItem is %p\n", currSnakeItem);
+        printf("x coordinate: %d\n", currSnakeItem->position.x);
+        printf("y coordinate: %d\n", currSnakeItem->position.y);
+        if (i == 0) { 
+            draw_snake_head(currSnakeItem->position.x, currSnakeItem->position.y); // I have no idea how to use that function pointer in items.h struct
+        } else  {
+            draw_snake_body(currSnakeItem->position.x, currSnakeItem->position.y);
+        }
+        currItem = currItem->next;
+    }
+    printf("CurrItem is %p\n", currItem);
 }
 
 Snake* get_snake(void) {

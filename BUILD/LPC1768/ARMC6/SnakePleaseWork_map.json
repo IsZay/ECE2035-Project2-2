@@ -13,10 +13,10 @@
     {
         "module": "[lib]\\c_w.l",
         "size": {
-            ".text": 4806,
+            ".text": 4890,
             ".data": 16,
             ".bss": 576,
-            ".text-delta": 0,
+            ".text-delta": -78,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -57,8 +57,19 @@
     {
         "module": "doubly_linked_list.o",
         "size": {
-            ".text": 346,
+            ".text": 476,
             ".data": 0,
+            ".bss": 0,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "graphics.o",
+        "size": {
+            ".text": 577,
+            ".data": 20,
             ".bss": 0,
             ".text-delta": 0,
             ".data-delta": 0,
@@ -79,10 +90,10 @@
     {
         "module": "items.o",
         "size": {
-            ".text": 20,
+            ".text": 545,
             ".data": 0,
             ".bss": 4,
-            ".text-delta": 0,
+            ".text-delta": -40,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -90,7 +101,7 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 1039,
+            ".text": 1158,
             ".data": 0,
             ".bss": 0,
             ".text-delta": 0,
@@ -145,7 +156,7 @@
     {
         "module": "mbed-os\\platform",
         "size": {
-            ".text": 8715,
+            ".text": 8723,
             ".data": 64,
             ".bss": 340,
             ".text-delta": 0,
@@ -178,9 +189,20 @@
     {
         "module": "snake.o",
         "size": {
-            ".text": 234,
+            ".text": 512,
             ".data": 0,
             ".bss": 8,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "uLCD_4DGL_Graphics.o",
+        "size": {
+            ".text": 258,
+            ".data": 0,
+            ".bss": 0,
             ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
@@ -210,10 +232,10 @@
     },
     {
         "summary": {
-            "static_ram": 10934,
+            "static_ram": 10954,
             "static_ram_delta": 0,
-            "total_flash": 41175,
-            "total_flash_delta": 0
+            "total_flash": 43174,
+            "total_flash_delta": -118
         }
     }
 ]

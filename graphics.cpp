@@ -61,14 +61,14 @@ const char* boost_img =
     "00BBBB00";
 
 const char* snake_head_img =
-    "RRRRRRRR"
-    "RRRRRRRR"
-    "RRRRRRRR"
-    "RRRRRRRR"
-    "RRRRRRRR"
-    "RRRRRRRR"
-    "RRRRRRRR"
-    "RRRRRRRR";
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW";
 
 const char* snake_body_img =
     "GGGGGGGG"
@@ -108,6 +108,9 @@ void draw_img(int x, int y, const char* img) {
                 break;
             case 'G':
                 colors[i] = GREEN;
+                break;
+            case 'W':
+                colors[i] = WHITE;
                 break;
             case '0':
                 colors[i] = BLACK;

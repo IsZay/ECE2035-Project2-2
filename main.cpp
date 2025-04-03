@@ -60,6 +60,20 @@ int main()
     snake_init(); // They return nothing, so don't bother doing Snake theSnake = snake_init()
     items_init(); // I will assume these functions workk
     
+    printf("print again to end initialization\n");
+    uLCD.printf("Push Again!");
+
+    
+     while(1){
+        // 2035TODO
+        // you need to implement read_inputs to get past the start screen!!
+        inputs = read_inputs(); // inputs is the struct in hardware.cpp
+        // I don't know if its set to be low tho in the beginning, inputs b1-b3 really
+        if (inputs.up || inputs.down || inputs.right || inputs.left || inputs.center || inputs.b1 || inputs.b2 || inputs.b3) {
+            srand(t.elapsed_time().count()); // this line sets the random seed
+            break;
+        }
+    }
     // So I went to snake.h and snake.cpp
     // But I didn't know how to make SnakeItems (i could make the snake struct fine)
     // So I went to Items and had the same issue
