@@ -47,7 +47,7 @@ int main()
         // you need to implement read_inputs to get past the start screen!!
         inputs = read_inputs(); // inputs is the struct in hardware.cpp
         // I don't know if its set to be low tho in the beginning, inputs b1-b3 really
-        if (inputs.up || inputs.down || inputs.right || inputs.left || inputs.center || inputs.b1 || inputs.b2 || inputs.b3) {
+        if (inputs.up || inputs.down || inputs.right || inputs.left || inputs.center || inputs.b1 || inputs.b2 || inputs.b3 || inputs.b4) {
             srand(t.elapsed_time().count()); // this line sets the random seed
             break;
         }
@@ -60,20 +60,21 @@ int main()
     snake_init(); // They return nothing, so don't bother doing Snake theSnake = snake_init()
     items_init(); // I will assume these functions workk
     
-    printf("print again to end initialization\n");
-    uLCD.printf("Push Again!");
+    // printf("print again to end initialization\n");
+    // uLCD.printf("Push Again!");
 
     
-     while(1){
-        // 2035TODO
-        // you need to implement read_inputs to get past the start screen!!
-        inputs = read_inputs(); // inputs is the struct in hardware.cpp
-        // I don't know if its set to be low tho in the beginning, inputs b1-b3 really
-        if (inputs.up || inputs.down || inputs.right || inputs.left || inputs.center || inputs.b1 || inputs.b2 || inputs.b3) {
-            srand(t.elapsed_time().count()); // this line sets the random seed
-            break;
-        }
-    }
+    //  while(1){
+    //     // 2035TODO
+    //     // you need to implement read_inputs to get past the start screen!!
+    //     inputs = read_inputs(); // inputs is the struct in hardware.cpp
+    //     // I don't know if its set to be low tho in the beginning, inputs b1-b3 really
+    //     if (inputs.up || inputs.down || inputs.right || inputs.left || inputs.center || inputs.b1 || inputs.b2 || inputs.b3) {
+    //         srand(t.elapsed_time().count()); // this line sets the random seed
+    //         break;
+    //     }
+    // }
+
     // So I went to snake.h and snake.cpp
     // But I didn't know how to make SnakeItems (i could make the snake struct fine)
     // So I went to Items and had the same issue
@@ -90,9 +91,11 @@ int main()
     while(1)
     {
 
-        wait_us(40000); // Recovery time
+        wait_us(40000); // Recovery time 
+        // wait_us(4000000); // Recovery time    
 
         // 1. draw the items and the snake
+        // uLCD.cls();
         draw_items(); // This feature might not be implemented right! 
         draw_snake(); // Neither lowkey
 
@@ -125,7 +128,7 @@ int main()
         if (check_wall_collision()){
             //Game ending collision
             uLCD.cls();
-            uLCD.locate(24, 24);
+            uLCD.locate(0, 9);
             uLCD.printf("GAME OVER");
             break;
         }
@@ -134,7 +137,7 @@ int main()
             // for 3 and 4, check out uLCD.cls()
         if (score >= 10) {
             uLCD.cls();
-            uLCD.locate(24, 24);
+            uLCD.locate(0, 9);
             uLCD.printf("YOU WIN!! WOW");
             break;
         }
@@ -158,24 +161,32 @@ int main()
         if (allButtons.up) {
             // Only let one button be active at a time for maybe?
             printf("up was pressed!\n");
+            
+            // move_snake();
         } else if (allButtons.down) {
             printf("down was pressed!\n");
+            // move_snake();
         } else if (allButtons.right) {
             printf("right was pressed!\n");
+            // move_snake();
         } else if (allButtons.left) {
             printf("left was pressed!\n");
+            // move_snake();
         } else if (allButtons.center) {
             printf("center was pressed!\n");
+            // move_snake();
         }
 
 
         // 6. move the snake (you might not want the snake to move every loop)
-        if (tick % 8 == 0) {
+        if (tick % 16 == 0) {
             // Move the snake now!
             // move_snake();
-            printf("Move snake right now!\n");
+            move_snake();
+            // printf("\n\n\n\n\nMove snake right now!\n\n\n\n\n");
+            
         }
-        
+        printf("\n");
         tick++;
         t.reset();
     }

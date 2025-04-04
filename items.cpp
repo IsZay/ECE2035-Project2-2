@@ -27,45 +27,43 @@ void items_init(void)
     items->items_list = create_dlinkedlist();
     items->data = NULL;
     
-    printf("Rand is: %d\n", rand());
-    printf("Rand is: %d\n", rand());
-    int randomVariable = rand() % 16;
-    int randomVariable2 = (rand() % 15) + 1;
-    printf("Rand is: %d\n ", randomVariable);
-    int randomType = rand() % 3 + 1;
+    // printf("Rand is: %d\n", rand());
+    // printf("Rand is: %d\n", rand());
+    // int randomVariable = rand() % 16;
+    // int randomVariable2 = (rand() % 15) + 1;
+    // printf("Rand is: %d\n ", randomVariable);
+    // int randomType = rand() % 3 + 1;
+    int xCoordinate = 14;
+    int yCoordinate = 1;
 
 
     for (int i = 0; i < 10; i++) {
-        Item* item = (Item*) malloc(sizeof(Item*));
-        item->type = randomType; //1 is fruit, 2 is boost, 3 is poison
+        Item* item = (Item*) malloc(sizeof(Item));
+        item->type = i % 3 + 1; //1 is fruit, 2 is boost, 3 is poison
+        item->position.x = xCoordinate; // Lowkey I don't know all of the positions that are possible
+        item->position.y = yCoordinate; // The location auto defaults to 0?
+ 
+        // printf("The item node is %p\n", item);
+        
+        //0x10002AF0 (0,1)
+        //0x10002B08 (14,2)
+        //0x10002B20 (14,3)
+
+        //CurrItem is 0x10002AF0
         item->data = NULL; 
-        item->position.x = (randomVariable); // Lowkey I don't know all of the positions that are possible
-        item->position.y = randomVariable2;
         if (i == 0) {
             item->position.x = 0; // Lowkey I don't know all of the positions that are possible
             item->position.y = 1;
         }
-        insertTail(items->items_list, item);
+
+        // printf("item's position x coord: %d\n", item->position.x);
+        // printf("item's position y coord: %d\n", item->position.y);
+        
+        yCoordinate += 1;
+        insertTail( (items->items_list) , item);
     }
     draw_items();
 
-    // items = create_dlinkedlist();
-    // int xCoordinate = 15 * 8;
-    // int yCoordinate = 8;
-    // // locations should be RANDOMLY GENERATED
-    // // locations should NOT overlap with other items or the snake
-    // for (int i = 0; i < NUM_ITEMS; i++) {
-    //     Item* newItem = (Item*) malloc(sizeof(Item));
-
-    //     newItem->point->x = xCoordinate; // This is not correct lowkey, not random at all!!!!!!
-    //     newItem->point->y = yCoordinate;
-    //     xCoordinate -= 8;
-    //     yCoordinate += 8;
-        
-    //     // I don't know what else
-        
-    //     items.insertAfter(newItem); // I have less than no clue how to use insertAfter with this list
-    // }
 }
 
 
@@ -88,26 +86,34 @@ void replace_item(LLNode* current_item) {
 // This function should draw all of the items in the Items linked list
 // This should be VERY similar to the draw_snake() function
 void draw_items(void) {
+
     LLNode* currNode = getHead(items->items_list);
-    Item* currItem = (Item*) currNode->data;
     for (int i = 0; i < NUM_ITEMS; i++) {
         // draw 10 items, thats a lot!
-        printf("currNode is %p\n", currNode);
-        printf("CurrItem is %p\n", currItem);
-        printf("x coordinate: %d\n", currItem->position.x);
-        printf("y coordinate: %d\nThe Fruit for this node is ", currItem->position.y);
+        Item* currItem = (Item*) (currNode->data);
+
+
+        // printf("currNode is %p\n", currNode);
+        // printf("CurrItem is %p\n", currItem);
+        // printf("x coordinate: %d\n", currItem->position.x); // This is really not working
+        // printf("y coordinate: %d\n", currItem->position.y);
+
         if (currItem->type == 1) {
             // draw Fruit
-            printf("Fruit!\n\n");
+            // printf("Fruit!\n\n");
             draw_fruit(currItem->position.x, currItem->position.y); // I have no idea how to use that function pointer in items.h struct
         } else if (currItem->type == 2) {
-            printf("Boost!\n\n");
+            // draw Boost
+            // printf("Boost!\n\n");
             draw_boost(currItem->position.x, currItem->position.y);
         } else if (currItem->type == 3) {
-            printf("Poison!\n\n");
+            // draw Poison
+            // printf("Poison!\n\n");
             draw_poison(currItem->position.x, currItem->position.y);
         }
+
         currNode = currNode->next;
+
     }
 }
 

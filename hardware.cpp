@@ -90,6 +90,17 @@ GameInputs read_inputs()
     in.left= myNav.left();
     in.right = myNav.right();
     in.center = myNav.center();
+    if (in.up) {
+        printf("You are pressing up currently!\n");
+    } else if (in.down) {
+        printf("You are pressing down currently!\n");
+    } else if (in.left) {
+        printf("You are pressing left currently!\n");
+    } else if (in.right) {
+        printf("You are pressing right currently!\n");
+    } else if (in.center) {
+        printf("You are pressing center currently!\n");
+    }
 
     return in;
 }

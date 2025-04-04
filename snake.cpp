@@ -26,7 +26,7 @@ void snake_init()
     snake = (Snake*)malloc(sizeof(Snake));
     // snake->snake_list;
     SnakeDLL = create_dlinkedlist();
-    printf("Alright you created the SnakeDLL\n");
+    // printf("Alright you created the SnakeDLL\n");
     snake->snake_list = SnakeDLL;
     
     // SnakeDLL = create_dlinkedlist();
@@ -36,7 +36,7 @@ void snake_init()
     // snake = ;
     snake->length = 10;
     snake->score = 0;
-    snake->direction = NONE;
+    snake->direction = RIGHT;
     snake->previous_tail_position.x = 0;
     snake->previous_tail_position.y = 0;
     snake->boosted = 0;
@@ -50,7 +50,7 @@ void snake_init()
         
         // how do I get the data which is a SnakeItem?
     for (int i = 0; i < snake->length; i++) { // This went on forever!
-        printf("Started for loop\n");
+        // printf("Started for loop\n");
         SnakeItem* newItem = (SnakeItem*) malloc(sizeof(SnakeItem));
         newItem->position.x = xCoordinate; // This is not correct lowkey
         newItem->position.y = yCoordinate;
@@ -58,11 +58,14 @@ void snake_init()
         yCoordinate += 0; // Like I'm pretty pretty sure
         
         // I don't know what else
-        printf("Before insertTail\n");
+        // printf("Before insertTail\n");
         insertHead(SnakeDLL, newItem); // I have less than no clue how to use insertAfter with this list
         // The data field of LLNode is newItem!
-        printf("After insertTail\n");
+        // printf("After insertTail\n");
     }
+    snake->previous_tail_position.x = ((SnakeItem*) getPrev(getTail(snake->snake_list)))->position.x;
+    snake->previous_tail_position.y = ((SnakeItem*) getPrev(getTail(snake->snake_list)))->position.y;
+
     // printf("Snake is currently: %p\n", snake);
     // printf("The snake->list is: %p\n", snake->snake_list);
     // printf("The snake->snake_list as hex is %x\n ", snake->snake_list);
@@ -79,6 +82,56 @@ void snake_init()
 // This function updates the location of the SnakeItems in the Snake's DLL
 void move_snake() {
     // Hint: you'll want to use previous_tail_position for this function
+    
+    GameInputs inputs;
+    inputs = read_inputs();
+
+    LLNode* currSnake = (LLNode*) getHead(snake->snake_list);
+    SnakeItem* currSnakeItem = (SnakeItem*) currSnake->data;
+
+    // Lets update the new direction for the head!
+            // Okay update currNode's position
+        printf("snake->direction is %d\n", snake->direction);
+        if      (inputs.up && (snake->direction != DOWNWARD)) { printf("go Up move_snake()\ninputs.right is %d and snake->direction is %d\n", inputs.right, snake->direction); 
+        snake->direction = UPWARD;
+         }
+        else if (inputs.down && (snake->direction != UPWARD)) { printf("go DOWN move_snake()\ninputs.right is %d and snake->direction is %d\n", 
+        inputs.right, snake->direction); 
+        snake->direction = DOWNWARD; }
+        else if (inputs.right == 1 && (snake->direction != LEFT)) { printf("go RIGHT move_snake()\n inputs.right is %d and snake->direction is %d\n", inputs.right, snake->direction); 
+        snake->direction = RIGHT; }
+        else if (inputs.left && (snake->direction != RIGHT)) { printf("go LEFT move_snake()\ninputs.right is %d and snake->direction is %d\n", inputs.right, snake->direction); 
+        snake->direction = LEFT; }
+        // else if (inputs.center) { snake->direction = NONE; }
+
+        if (snake->direction == RIGHT) {
+                currSnakeItem->position.x++; 
+                printf("You moved Right!\n");
+            } else if (snake->direction == LEFT) {
+                currSnakeItem->position.x--;
+                printf("You moved LEFT!\n");
+            } else if (snake->direction == UPWARD) {
+                currSnakeItem->position.y--;
+                printf("You moved UP!\n");
+            } else if (snake->direction == DOWNWARD) {
+                currSnakeItem->position.y++;
+                printf("You moved DOWN!\n");
+            } else {
+                // Do nothing
+                printf("You tried to move nowhere\n");
+            }
+
+
+   // now that you moved the head, let the body follow
+//    currSnake = currSnake->next;
+    for (int i = 1; i < snake->length; i++) {
+        currSnakeItem = (SnakeItem*) currSnake->next->data; // we want the head to lead, and then share our direction with our past person
+        // Okay update currNode's position
+            currSnakeItem->position.x = ((SnakeItem*) (currSnake->data))->position.x;
+            currSnakeItem->position.y = ((SnakeItem*) (currSnake->data))->position.y;
+            currSnake = currSnake->next;
+        // }
+    }
 
 }
 
@@ -117,10 +170,10 @@ void draw_snake(void) {
     for (int i = 0; i < snake->length; i++) {
         SnakeItem* currSnakeItem = (SnakeItem*) currItem->data;
         // draw 10 items, thats a lot!
-        printf("CurrItem is %p\n", currItem);
-        printf("currSnakeItem is %p\n", currSnakeItem);
-        printf("x coordinate: %d\n", currSnakeItem->position.x);
-        printf("y coordinate: %d\n", currSnakeItem->position.y);
+        // printf("CurrItem is %p\n", currItem);
+        // printf("currSnakeItem is %p\n", currSnakeItem);
+        // printf("x coordinate: %d\n", currSnakeItem->position.x);
+        // printf("y coordinate: %d\n", currSnakeItem->position.y);
         if (i == 0) { 
             draw_snake_head(currSnakeItem->position.x, currSnakeItem->position.y); // I have no idea how to use that function pointer in items.h struct
         } else  {
@@ -128,7 +181,7 @@ void draw_snake(void) {
         }
         currItem = currItem->next;
     }
-    printf("CurrItem is %p\n", currItem);
+    // printf("CurrItem is %p\n", currItem);
 }
 
 Snake* get_snake(void) {
