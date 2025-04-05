@@ -84,11 +84,19 @@ const char* nothing_img =
     "00000000"
     "00000000"
     "00000000"
-    "RRRRRRRR"
-    "RRRRRRRR"
+    "00000000"
+    "00000000"
     "00000000"
     "00000000"
     "00000000";
+    // "00000000" // use this to debug nothing img i guess
+    // "00000000"
+    // "00000000"
+    // "RRRRRRRR"
+    // "RRRRRRRR"
+    // "00000000"
+    // "00000000"
+    // "00000000";
 
 
 // This takes a location (x,y) and const char* as input, and prints a sprite onto the screen

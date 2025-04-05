@@ -33,7 +33,7 @@ void items_init(void)
     // int randomVariable2 = (rand() % 15) + 1;
     // printf("Rand is: %d\n ", randomVariable);
     // int randomType = rand() % 3 + 1;
-    int xCoordinate = 14;
+    int xCoordinate = 13;
     int yCoordinate = 1;
 
 
@@ -72,7 +72,47 @@ void items_init(void)
 // Should return 1 for a GAME-ENDING collision, 0 otherwise
 bool check_item_collision() {
     // If an item is eaten, it should be replaced at a new location
+    LLNode* currSnake = (LLNode*) getHead(get_snake()->snake_list);
+    SnakeItem* currSnakeHead = (SnakeItem*) currSnake->data;
+    // Okay now that you have the snake's head, check all spots
+    
+    // Items* theList = (Items*) getHead(items->items_list);
+    LLNode* currNode = getHead(items->items_list);
+    
+    for (int i = 1; i < NUM_ITEMS; i++) {
+        // Check the Head with every other index
+        Item* currItem = (Item*) currNode->data;    // I hope this is right
+        if (currSnakeHead->position.x == currItem->position.x && currSnakeHead->position.y == currItem->position.y) {
+            // You found a collision but not necessarily game ending!
+            if (currItem->type == 1) {
+            // draw Fruit
+            // printf("Fruit!\n\n");
+            get_snake()->score++;
+            grow_snake();
+            draw_nothing(currItem->position.x, currItem->position.y); // I have no idea how to use that function pointer in items.h struct
+            draw_snake_head(currSnakeHead->position.x, currSnakeHead->position.y);
+            } else if (currItem->type == 2) {
+            // draw Boost
+            // printf("Boost!\n\n");
+            get_snake()->boosted += 5;
+            printf("You are trying to boost, but I don't know how to make you\n");
+            draw_boost(currItem->position.x, currItem->position.y);
+            } else if (currItem->type == 3) {
+            // draw Poison
+            // printf("Poison!\n\n");
+            get_snake()->score--;
+            draw_poison(currItem->position.x, currItem->position.y);
+            } else {
+                // Okay what did you eat buddy
+                printf("Ate unknown fruit as of right now?!");
+                return 1;
+            }
+        }
+        currNode = currNode->next;
+    }
 
+
+    // replace_item(LLNode* itemNode);
     return 0;
 }
 
