@@ -79,7 +79,7 @@
     {
         "module": "hardware.o",
         "size": {
-            ".text": 911,
+            ".text": 656,
             ".data": 0,
             ".bss": 1784,
             ".text-delta": 0,
@@ -90,10 +90,10 @@
     {
         "module": "items.o",
         "size": {
-            ".text": 1317,
+            ".text": 862,
             ".data": 0,
             ".bss": 4,
-            ".text-delta": 80,
+            ".text-delta": 8,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -101,7 +101,7 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 1271,
+            ".text": 713,
             ".data": 0,
             ".bss": 0,
             ".text-delta": 0,
@@ -189,7 +189,7 @@
     {
         "module": "snake.o",
         "size": {
-            ".text": 895,
+            ".text": 610,
             ".data": 0,
             ".bss": 8,
             ".text-delta": 0,
@@ -234,8 +234,8 @@
         "summary": {
             "static_ram": 10958,
             "static_ram_delta": 0,
-            "total_flash": 44780,
-            "total_flash_delta": 80
+            "total_flash": 43227,
+            "total_flash_delta": 8
         }
     }
 ]

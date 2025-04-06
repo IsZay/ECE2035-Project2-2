@@ -43,25 +43,8 @@ int hardware_init()
     button2.mode(PullUp);
     button3.mode(PullUp);
     
-    button4.mode(PullUp); // SDown
+    button4.mode(PullUp); // New button just because its there
 
-    // up.up();
-    // down.down();
-    // left.left();
-    // right.right();
-    // center.center();
-
-
-    // I don't think thats correct, myNav.up() returns 0 or 1 (though it is a boolean)
-    // This means that if the button is pressed or not is what returns 0 or 1
-    // not if an error occured in initalization
-
-
-    // // How do I initialize the 5 way navigation switch
-    // if (myNav.up() || myNav.down() || myNav.left() || myNav.right() || myNav.center()) {
-    //     // probably should print somn to the console to be like, a pin on the nav switch aint working!
-    //     return ERROR_OCCURED; // I defined this, I don't know if this is right
-    // }
     return ERROR_NONE;
 }
 
@@ -90,17 +73,6 @@ GameInputs read_inputs()
     in.left= myNav.left();
     in.right = myNav.right();
     in.center = myNav.center();
-    if (in.up) {
-        printf("You are pressing up currently!\n");
-    } else if (in.down) {
-        printf("You are pressing down currently!\n");
-    } else if (in.left) {
-        printf("You are pressing left currently!\n");
-    } else if (in.right) {
-        printf("You are pressing right currently!\n");
-    } else if (in.center) {
-        printf("You are pressing center currently!\n");
-    }
 
     return in;
 }

@@ -51,14 +51,22 @@ const char* poison_img =
     "00YYYY00";
 
 const char* boost_img =
-    "000YG000"
-    "000Y0000"
-    "0BBBBBB0"
     "BBBBBBBB"
     "BBBBBBBB"
-    "BBBBBBBB"
-    "0BBBBBB0"
-    "00BBBB00";
+    "BBBBBWBB"
+    "WWWWWWWB"
+    "WWWWWWWW"
+    "WWWWWWWB"
+    "BBBBBWBB"
+    "BBBBBBBB";
+    // "000YG000"
+    // "000Y0000"
+    // "0BBBBBB0"
+    // "BBBBBBBB"
+    // "BBBBBBBB"
+    // "BBBBBBBB"
+    // "0BBBBBB0"
+    // "00BBBB00";
 
 const char* snake_head_img =
     "WWWWWWWW"
