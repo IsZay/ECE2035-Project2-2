@@ -13,7 +13,7 @@
     {
         "module": "[lib]\\c_w.l",
         "size": {
-            ".text": 4838,
+            ".text": 4890,
             ".data": 16,
             ".bss": 576,
             ".text-delta": 0,
@@ -90,10 +90,10 @@
     {
         "module": "items.o",
         "size": {
-            ".text": 530,
+            ".text": 1317,
             ".data": 0,
             ".bss": 4,
-            ".text-delta": 304,
+            ".text-delta": 80,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -101,10 +101,10 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 1221,
+            ".text": 1271,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": -21,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -234,8 +234,8 @@
         "summary": {
             "static_ram": 10958,
             "static_ram_delta": 0,
-            "total_flash": 43891,
-            "total_flash_delta": 283
+            "total_flash": 44780,
+            "total_flash_delta": 80
         }
     }
 ]

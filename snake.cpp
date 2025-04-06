@@ -218,7 +218,7 @@ void grow_snake()
     newItem->position.x = snake->previous_tail_position.x; // This is not correct lowkey
     newItem->position.y = snake->previous_tail_position.y;
 
-    insertTail(SnakeDLL, newItem); 
+    insertTail(SnakeDLL, newItem);
     snake->length++;
     }
 

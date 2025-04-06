@@ -84,8 +84,8 @@ int main()
     
     int tick = 0;
 
-    int score = 0; // use snake->score
-    int boostValue = 0; // use snake->boosted
+    // int score = 0; // use snake->score
+    // int boostValue = 0; // use snake->boosted
     // 2035TODO
     // Implement the main game loop
     while(1)
@@ -93,123 +93,125 @@ int main()
 
         wait_us(40000); // Recovery time 
         // wait_us(4000000); // Recovery time    
-
-        // 1. draw the items and the snake
-        // uLCD.cls();
-        draw_items(); // This feature might not be implemented right! 
-        draw_snake(); // Neither lowkey
-
-
-        // 2. print the score and the snake's 'boosted' value at the top of the screen
-            // check out uLCD.locate() and uLCD.printf()
-        
-        uLCD.locate(0, 0); // I hope thats a good location
-        uLCD.printf("Score:%d Boost: %d ", get_snake()->score, get_snake()->boosted); // make score variable
-        
-
-
-        // 3. check for collision -> if a GAME-ENDING collision occurs, end the game with a game over screen
-            // self collision
-            // item collision
-            // wall colliison
-        if (check_self_collision()) {
-            //Game ending collision
-            uLCD.cls();
-            uLCD.locate(0, 3);
-            uLCD.printf("GAME OVER");
-            break;
-        }
-        if (check_item_collision()) {
-            //increase score if fruit
-            // how to get the fruit that it collided with?
-            // uLCD.printf("\nYou should have eaten somn");
-            printf("\nIn terminal, you shoulda eaten somn\n");
-        }
-        if (check_wall_collision()){
-            //Game ending collision
-            uLCD.cls();
-            uLCD.locate(0, 3);
-            uLCD.printf("GAME OVER");
-            break;
-        }
-
-        // 4. check if the snake's score >= 10 -> if so end the game with a game win screen
-            // for 3 and 4, check out uLCD.cls()
-        if (score >= 10) {
-            uLCD.cls();
-            uLCD.locate(0, 9);
-            uLCD.printf("YOU WIN!! WOW");
-            break;
-        }
-
-
-        // 5. read the user inputs and update the snake direction if necessary
-        inputs = read_inputs();
-        if (inputs.b1) {
-            printf("b1 was pressed!\n");
-            grow_snake();
-        } else if (inputs.b2) {
-            // Only let one button be active at a time for maybe?
-            printf("b2 was pressed!\n");
-        } else if (inputs.b3) {
-            // Only let one buton be active at a time for maybe?
-            printf("b3 was pressed!\n");
-        } else if (inputs.b4) {
-            // Only let one button be active at a time for maybe?
-            printf("b4 was pressed!\n");
-        }
-
-         if  (inputs.up && (get_snake()->direction != DOWNWARD)) { printf("go Up move_snake()\ninputs.right is %d and snake->direction is %d\n", inputs.right, get_snake()->direction); 
-        get_snake()->direction = UPWARD;
-         }
-        else if (inputs.down && (get_snake()->direction != UPWARD)) { printf("go DOWN move_snake()\ninputs.right is %d and snake->direction is %d\n", 
-        inputs.right, get_snake()->direction); 
-        get_snake()->direction = DOWNWARD; }
-        else if (inputs.right == 1 && (get_snake()->direction != LEFT)) { printf("go RIGHT move_snake()\n inputs.right is %d and snake->direction is %d\n", inputs.right, get_snake()->direction); 
-        get_snake()->direction = RIGHT; }
-        else if (inputs.left && (get_snake()->direction != RIGHT)) { printf("go LEFT move_snake()\ninputs.right is %d and snake->direction is %d\n", inputs.right, get_snake()->direction); 
-        get_snake()->direction = LEFT; }
-        // else if (inputs.center) { snake->direction = NONE; }
-        // if (allButtons.up) {
-        //     // Only let one button be active at a time for maybe?
-        //     printf("up was pressed!\n");
-            
-        //     // move_snake();
-        // } else if (allButtons.down) {
-        //     printf("down was pressed!\n");
-        //     // move_snake();
-        // } else if (allButtons.right) {
-        //     printf("right was pressed!\n");
-        //     // move_snake();
-        // } else if (allButtons.left) {
-        //     printf("left was pressed!\n");
-        //     // move_snake();
-        // } else if (allButtons.center) {
-        //     printf("center was pressed!\n");
-        //     // move_snake();
-        // }
-
-
-        // 6. move the snake (you might not want the snake to move every loop)
         if (tick % 2 == 0) {
-            // Move the snake now!
-            // move_snake();
-            // printf("Head location before x: %d\n", ((SnakeItem*) (getHead(get_snake()->snake_list)->data))->position.x);
-            // printf("Head location before y: %d\n",  ((SnakeItem*) getHead(get_snake()->snake_list)->data)->position.y);
-            // printf("Tail location before x: %d\n", ((SnakeItem*) (getTail(get_snake()->snake_list)->data))->position.x);
-            // printf("Tail location before y: %d\n",  ((SnakeItem*) getTail(get_snake()->snake_list)->data)->position.y);
-            move_snake();
-            if (get_snake()->boosted > 0) {
-                get_snake()->boosted--;
+            // 1. draw the items and the snake
+            // uLCD.cls();
+            draw_items(); // This feature might not be implemented right! 
+            draw_snake(); // Neither lowkey
+
+
+            // 2. print the score and the snake's 'boosted' value at the top of the screen
+                // check out uLCD.locate() and uLCD.printf()
+            
+            uLCD.locate(0, 0); // I hope thats a good location
+            uLCD.printf("Score:%d Boost: %d ", get_snake()->score, get_snake()->boosted); // make score variable
+            
+
+
+            // 3. check for collision -> if a GAME-ENDING collision occurs, end the game with a game over screen
+                // self collision
+                // item collision
+                // wall colliison
+            if (tick % 2 == 0 && check_self_collision()) {
+                //Game ending collision
+                uLCD.cls();
+                uLCD.locate(0, 3);
+                uLCD.printf("GAME OVER");
+                break;
             }
-            // printf("\n\n\n\n\nMove snake right now!\n\n\n\n\n");
-            // printf("\nHead location after x: %d\n",  ((SnakeItem*)getHead(get_snake()->snake_list)->data)->position.x);
-            // printf("Head location after y: %d\n",  ((SnakeItem*)getHead(get_snake()->snake_list)->data)->position.y);
-            // printf("Tail location after x: %d\n", ((SnakeItem*) (getTail(get_snake()->snake_list)->data))->position.x);
-            // printf("Tail location after y: %d\n",  ((SnakeItem*) getTail(get_snake()->snake_list)->data)->position.y);
+            if (tick % 2 == 0 && check_item_collision()) {
+                // This tick % 2 helps it not increase twice!
+                //increase score if fruit
+                // how to get the fruit that it collided with?
+                // uLCD.printf("\nYou should have eaten somn");
+                printf("\nIn terminal, you shoulda eaten somn\n");
+            }
+            if (tick % 2 == 0 && check_wall_collision()){
+                //Game ending collision
+                uLCD.cls();
+                uLCD.locate(0, 3);
+                uLCD.printf("GAME OVER");
+                break;
+            }
+
+            // 4. check if the snake's score >= 10 -> if so end the game with a game win screen
+                // for 3 and 4, check out uLCD.cls()
+            if (get_snake()->score >= 10) {
+                uLCD.cls();
+                uLCD.locate(0, 2);
+                uLCD.printf("YOU WIN!!\nWOW");
+                break;
+            }
+
+
+            // 5. read the user inputs and update the snake direction if necessary
+            inputs = read_inputs();
+            if (inputs.b1) {
+                printf("b1 was pressed!\n");
+                grow_snake();
+            } else if (inputs.b2) {
+                // Only let one button be active at a time for maybe?
+                printf("b2 was pressed!\n");
+            } else if (inputs.b3) {
+                // Only let one buton be active at a time for maybe?
+                printf("b3 was pressed!\n");
+            } else if (inputs.b4) {
+                // Only let one button be active at a time for maybe?
+                printf("b4 was pressed!\n");
+            }
+
+            if  (inputs.up && (get_snake()->direction != DOWNWARD)) { printf("go Up move_snake()\ninputs.right is %d and snake->direction is %d\n", inputs.right, get_snake()->direction); 
+            get_snake()->direction = UPWARD;
+            }
+            else if (inputs.down && (get_snake()->direction != UPWARD)) { printf("go DOWN move_snake()\ninputs.right is %d and snake->direction is %d\n", 
+            inputs.right, get_snake()->direction); 
+            get_snake()->direction = DOWNWARD; }
+            else if (inputs.right == 1 && (get_snake()->direction != LEFT)) { printf("go RIGHT move_snake()\n inputs.right is %d and snake->direction is %d\n", inputs.right, get_snake()->direction); 
+            get_snake()->direction = RIGHT; }
+            else if (inputs.left && (get_snake()->direction != RIGHT)) { printf("go LEFT move_snake()\ninputs.right is %d and snake->direction is %d\n", inputs.right, get_snake()->direction); 
+            get_snake()->direction = LEFT; }
+            // else if (inputs.center) { snake->direction = NONE; }
+            // if (allButtons.up) {
+            //     // Only let one button be active at a time for maybe?
+            //     printf("up was pressed!\n");
+                
+            //     // move_snake();
+            // } else if (allButtons.down) {
+            //     printf("down was pressed!\n");
+            //     // move_snake();
+            // } else if (allButtons.right) {
+            //     printf("right was pressed!\n");
+            //     // move_snake();
+            // } else if (allButtons.left) {
+            //     printf("left was pressed!\n");
+            //     // move_snake();
+            // } else if (allButtons.center) {
+            //     printf("center was pressed!\n");
+            //     // move_snake();
+            // }
+
+
+            // 6. move the snake (you might not want the snake to move every loop)
+            if (tick % 2 == 0) {
+                // Move the snake now!
+                // move_snake();
+                // printf("Head location before x: %d\n", ((SnakeItem*) (getHead(get_snake()->snake_list)->data))->position.x);
+                // printf("Head location before y: %d\n",  ((SnakeItem*) getHead(get_snake()->snake_list)->data)->position.y);
+                // printf("Tail location before x: %d\n", ((SnakeItem*) (getTail(get_snake()->snake_list)->data))->position.x);
+                // printf("Tail location before y: %d\n",  ((SnakeItem*) getTail(get_snake()->snake_list)->data)->position.y);
+                move_snake();
+                if (get_snake()->boosted > 0) {
+                    get_snake()->boosted--;
+                }
+                // printf("\n\n\n\n\nMove snake right now!\n\n\n\n\n");
+                // printf("\nHead location after x: %d\n",  ((SnakeItem*)getHead(get_snake()->snake_list)->data)->position.x);
+                // printf("Head location after y: %d\n",  ((SnakeItem*)getHead(get_snake()->snake_list)->data)->position.y);
+                // printf("Tail location after x: %d\n", ((SnakeItem*) (getTail(get_snake()->snake_list)->data))->position.x);
+                // printf("Tail location after y: %d\n",  ((SnakeItem*) getTail(get_snake()->snake_list)->data)->position.y);
+            }
+            
+            // printf("\n");
         }
-        
-        // printf("\n");
         tick++;
         t.reset();
     }
