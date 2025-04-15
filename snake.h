@@ -66,6 +66,8 @@ typedef struct{
 
 void snake_init(void);
 
+void snake_reset(void);
+
 void grow_snake(void);
 
 Snake* get_snake(void);

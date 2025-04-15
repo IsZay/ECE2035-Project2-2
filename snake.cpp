@@ -51,6 +51,50 @@ void snake_init()
     draw_snake();
 }
 
+void snake_reset()
+{   
+    // snake->length = 10;
+    // snake->score = 0;
+    // snake->direction = RIGHT;
+    // snake->previous_tail_position.x = 0;
+    // snake->previous_tail_position.y = 0;
+    snake->boosted = 0;
+    int xCoordinate = 11;
+    int yCoordinate = 8;
+    int rotate = 0; // Helps us never hit a wall
+    LLNode* currNode = getHead(snake->snake_list);
+
+    for (int i = 0; i < snake->length; i++) {
+        SnakeItem* currSnakeItem = (SnakeItem*) currNode->data;
+        // Lets reset its coordinates
+        currSnakeItem->position.x = xCoordinate;
+        currSnakeItem->position.y = yCoordinate;
+
+        if (rotate == 0) {
+            xCoordinate--;
+        }
+        if (rotate == 1) {
+            yCoordinate--;
+        }
+        if (rotate == 2) {
+            xCoordinate++;
+        }
+        if (xCoordinate == 0) {
+            rotate = 1;
+        }
+        if (yCoordinate == 0) {
+            rotate = 2;
+        }
+        currNode = currNode->next;
+    }
+
+    snake->direction = RIGHT;
+
+    // Set the previous position of tail as its 
+    draw_snake();
+}
+
+
 // 2035TODO
 // This function updates the location of the SnakeItems in the Snake's DLL
 void move_snake() {

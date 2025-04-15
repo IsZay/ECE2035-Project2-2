@@ -60,7 +60,7 @@
             ".text": 480,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 0,
+            ".text-delta": 172,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -68,11 +68,11 @@
     {
         "module": "graphics.o",
         "size": {
-            ".text": 660,
-            ".data": 24,
+            ".text": 577,
+            ".data": 20,
             ".bss": 0,
-            ".text-delta": 0,
-            ".data-delta": 0,
+            ".text-delta": -83,
+            ".data-delta": -4,
             ".bss-delta": 0
         }
     },
@@ -90,10 +90,10 @@
     {
         "module": "items.o",
         "size": {
-            ".text": 862,
+            ".text": 900,
             ".data": 0,
             ".bss": 4,
-            ".text-delta": 8,
+            ".text-delta": 12,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -101,10 +101,10 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 713,
+            ".text": 1083,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 0,
+            ".text-delta": 117,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -137,7 +137,7 @@
             ".text": 4209,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 0,
+            ".text-delta": 22,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -189,10 +189,10 @@
     {
         "module": "snake.o",
         "size": {
-            ".text": 610,
+            ".text": 714,
             ".data": 0,
             ".bss": 8,
-            ".text-delta": 0,
+            ".text-delta": -10,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -232,10 +232,10 @@
     },
     {
         "summary": {
-            "static_ram": 10958,
-            "static_ram_delta": 0,
-            "total_flash": 43227,
-            "total_flash_delta": 8
+            "static_ram": 10954,
+            "static_ram_delta": -4,
+            "total_flash": 43652,
+            "total_flash_delta": 226
         }
     }
 ]

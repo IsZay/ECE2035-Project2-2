@@ -51,6 +51,8 @@ typedef struct {
 
 void items_init(void);
 
+void items_reset(void);
+
 Items* get_items(void);
 
 bool check_item_collision();

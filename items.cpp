@@ -76,6 +76,21 @@ void items_init(void)
 }
 
 
+void items_reset(void)
+{
+    // items = (Items*) malloc(sizeof(Items*));
+    // items->items_list = create_dlinkedlist();
+    // items->data = NULL;
+    LLNode* currNode = getHead(items->items_list);
+    for (int i = 0; i < NUM_ITEMS; i++) {
+        replace_item(currNode);
+        currNode = currNode->next;
+    }
+    // That should work hopefully?!
+}
+
+
+
 // 2035TODO
 // This function should check if the snake's head collides with any items and handle each possible collision accordingly
 // Should return 1 for a GAME-ENDING collision, 0 otherwise
