@@ -145,9 +145,9 @@ int main()
                     // wall colliison
                 if (check_self_collision()) {
                     //Game ending collision
-                    uLCD.cls();
-                    uLCD.locate(0, 3);
-                    uLCD.printf("GAME OVER");
+                    // uLCD.cls();
+                    // uLCD.locate(0, 3);
+                    // uLCD.printf("GAME OVER");
                     break;
                 }
                 if (check_item_collision()) {
@@ -155,15 +155,16 @@ int main()
                     //increase score if fruit
                     // how to get the fruit that it collided with?
                     // uLCD.printf("\nYou should have eaten somn");
-                    uLCD.cls();
-                    uLCD.locate(0, 3);
-                    uLCD.printf("You at a bad fruit\nGAME OVER");
+                    // uLCD.cls();
+                    // uLCD.locate(0, 3);
+                    // uLCD.printf("You at a bad fruit\nGAME OVER");
+                    break;
                 }
                 if (check_wall_collision()){
                     //Game ending collision
-                    uLCD.cls();
-                    uLCD.locate(0, 3);
-                    uLCD.printf("GAME OVER");
+                    // uLCD.cls();
+                    // uLCD.locate(0, 3);
+                    // uLCD.printf("GAME OVER");
                     break;
                 }
 
@@ -204,7 +205,7 @@ int main()
             t.reset();
         }
         lives--;
-        if (!lives) {
+        if (!lives || get_snake()->score >= 10) {
             break;
         }
         uLCD.cls();
