@@ -19,5 +19,7 @@ void draw_boost(int x, int y);
 void draw_snake_body(int x, int y);
 void draw_snake_head(int x, int y);
 void draw_nothing(int x, int y);
+void draw_speed(int x, int y);
+void draw_death(int x, int y);
  
 #endif // GRAPHICS_H

@@ -105,6 +105,25 @@ const char* nothing_img =
     // "00000000"
     // "00000000"
     // "00000000";
+const char* speed_img =
+    "BBBBBBBB"
+    "BBBBBBBB"
+    "BBBBBBBB"
+    "BBBBBBBB"
+    "BBBBBBBB"
+    "BBBBBBBB"
+    "BBBBBBBB"
+    "BBBBBBBB";  
+
+const char* death_img =
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW"
+    "WWWWWWWW";  
 
 
 // This takes a location (x,y) and const char* as input, and prints a sprite onto the screen
@@ -179,4 +198,14 @@ void draw_snake_head(int x, int y)
 void draw_nothing(int x, int y)
 {
     draw_img(x,y,nothing_img);
+}
+
+void draw_speed(int x, int y)
+{
+    draw_img(x,y,speed_img);
+}
+
+void draw_death(int x, int y)
+{
+    draw_img(x,y,death_img);
 }

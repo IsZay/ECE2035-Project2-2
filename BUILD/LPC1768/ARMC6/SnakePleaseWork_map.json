@@ -60,7 +60,7 @@
             ".text": 480,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 172,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -68,11 +68,11 @@
     {
         "module": "graphics.o",
         "size": {
-            ".text": 577,
-            ".data": 20,
+            ".text": 761,
+            ".data": 32,
             ".bss": 0,
-            ".text-delta": -83,
-            ".data-delta": -4,
+            ".text-delta": 101,
+            ".data-delta": 8,
             ".bss-delta": 0
         }
     },
@@ -90,10 +90,10 @@
     {
         "module": "items.o",
         "size": {
-            ".text": 900,
+            ".text": 1438,
             ".data": 0,
             ".bss": 4,
-            ".text-delta": 12,
+            ".text-delta": 10,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -101,10 +101,10 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 1083,
+            ".text": 1136,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 117,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -137,7 +137,7 @@
             ".text": 4209,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 22,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -189,10 +189,10 @@
     {
         "module": "snake.o",
         "size": {
-            ".text": 714,
+            ".text": 724,
             ".data": 0,
             ".bss": 8,
-            ".text-delta": -10,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -232,10 +232,10 @@
     },
     {
         "summary": {
-            "static_ram": 10954,
-            "static_ram_delta": -4,
-            "total_flash": 43652,
-            "total_flash_delta": 226
+            "static_ram": 10966,
+            "static_ram_delta": 8,
+            "total_flash": 44449,
+            "total_flash_delta": 119
         }
     }
 ]

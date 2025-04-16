@@ -95,7 +95,12 @@ int main()
         while(1)
         {
             printf("b1: %d \n",inputs.b1);
-            wait_us(30000);
+            if (get_items()->data) {
+                // Move faster
+                wait_us(10000);
+            } else {
+                wait_us(30000);
+            }
             // wait_us(40000); // Recovery time 
             // wait_us(4000000); // Recovery time  
             if (tick % 2 == 0) {
@@ -130,7 +135,7 @@ int main()
                 // 2. print the score and the snake's 'boosted' value at the top of the screen
                     // check out uLCD.locate() and uLCD.printf()
                 uLCD.locate(0, 0); // I hope thats a good location
-                uLCD.printf("Score:%d Boost: %d ", get_snake()->score, get_snake()->boosted); // make score variable
+                uLCD.printf("Score:%d Bst:%d Spd:%d", get_snake()->score, get_snake()->boosted, get_items()->data); // make score variable
                 
 
 
@@ -189,6 +194,9 @@ int main()
                     move_snake();
                     if (get_snake()->boosted) {
                         get_snake()->boosted--; // Boost should decrease for every new frame
+                    }
+                    if (get_items()->data) {
+                        get_items()->data--;
                     }
                 }
             }

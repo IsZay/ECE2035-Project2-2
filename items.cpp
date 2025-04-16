@@ -25,11 +25,15 @@ void items_init(void)
 {
     items = (Items*) malloc(sizeof(Items*));
     items->items_list = create_dlinkedlist();
-    items->data = NULL;
+    items->data = 0;
 
     for (int i = 0; i < NUM_ITEMS; i++) {
         Item* item = (Item*) malloc(sizeof(Item));
-        item->type = i % 3 + 1; //1 is fruit, 2 is boost, 3 is poison
+        if (i < 5) {
+            item->type = 1;
+        } else {
+            item->type = i % 4 + 2; //1 is fruit, 2 is boost, 3 is poison, 4 is speed speed, 5 is death-death
+        }
         // item->position.x = rand() % 16;
         // item->position.y = rand() % 15 + 1;
         // As you add all 10 items, you might get a collision with the snake or another new item!
@@ -79,7 +83,7 @@ void items_easy_init(void)
 {
     items = (Items*) malloc(sizeof(Items*));
     items->items_list = create_dlinkedlist();
-    items->data = NULL;
+    items->data = 0;
 
     for (int i = 0; i < NUM_ITEMS; i++) {
         Item* item = (Item*) malloc(sizeof(Item));
@@ -134,7 +138,7 @@ void items_hard_init(void)
 {
     items = (Items*) malloc(sizeof(Items*));
     items->items_list = create_dlinkedlist();
-    items->data = NULL;
+    items->data = 0;
 
     for (int i = 0; i < NUM_ITEMS; i++) {
         Item* item = (Item*) malloc(sizeof(Item));
@@ -143,7 +147,7 @@ void items_hard_init(void)
         } else {
             item->type = i % 2 + 2; //1 is fruit, 2 is boost, 3 is poison
         }
-        
+
         bool position_ok = false;
 
         while (!position_ok) {
@@ -188,9 +192,7 @@ void items_hard_init(void)
 
 void items_reset(void)
 {
-    // items = (Items*) malloc(sizeof(Items*));
-    // items->items_list = create_dlinkedlist();
-    // items->data = NULL;
+
     LLNode* currNode = getHead(items->items_list);
     for (int i = 0; i < NUM_ITEMS; i++) {
         replace_item(currNode);
@@ -250,6 +252,11 @@ bool check_item_collision() {
             draw_snake_head(currSnakeHead->position.x, currSnakeHead->position.y);
             replace_item(currNode);
 
+            } else if (currItem->type == 4) {
+                // Fast-Fast fruit
+                items->data += 20;
+                draw_snake_head(currSnakeHead->position.x, currSnakeHead->position.y);
+                replace_item(currNode);
             } else {
                 // When implementing a game ending poison, return 1
                 printf("Ate unknown fruit as of right now?!");
@@ -336,6 +343,12 @@ void draw_items(void) {
         } else if (currItem->type == 3) {
             // draw Poison
             draw_poison(currItem->position.x, currItem->position.y);
+        } else if (currItem->type == 4) {
+            // draw Speed speed fruit
+            draw_speed(currItem->position.x, currItem->position.y);
+        } else if (currItem->type == 5) {
+            // draw death death fruit
+            draw_death(currItem->position.x, currItem->position.y);
         }
 
         currNode = currNode->next;

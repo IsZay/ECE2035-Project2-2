@@ -29,7 +29,7 @@ typedef struct {
     DLinkedList* items_list; 
 
     // For use with advanced features
-    void* data; 
+    int data; 
 
 } Items;
 
