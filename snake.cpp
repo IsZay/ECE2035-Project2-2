@@ -91,6 +91,10 @@ void snake_reset()
     snake->direction = RIGHT;
 
     // Set the previous position of tail as its 
+    // I don't know how to get the tail to disappear upon starting
+    snake->previous_tail_position.x = ((SnakeItem*) (getTail(snake->snake_list)->data))->position.x;
+    snake->previous_tail_position.y = ((SnakeItem*) (getTail(snake->snake_list)->data))->position.y;
+    
     draw_snake();
 }
 
