@@ -51,6 +51,10 @@ typedef struct {
 
 void items_init(void);
 
+void items_easy_init(void);
+
+void items_hard_init(void);
+
 void items_reset(void);
 
 Items* get_items(void);

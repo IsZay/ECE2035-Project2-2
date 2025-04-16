@@ -64,15 +64,19 @@ int main()
     // 2035TODO
     // initialize the Snake and the Items
     snake_init(); // They return nothing, so don't bother doing Snake theSnake = snake_init()
+    int lives;
     if (inputs.b4) {
         // You wanted hard mode!
-        items_init();
+        items_hard_init();
+        lives = 1;
     } else if (inputs.b2) {
         // You wanted easy mode!
-        items_init();
+        items_easy_init();
+        lives = 5;
     } else {
         // Normal mode
-        items_init(); 
+        items_init();
+        lives = 3; 
     }
     // So I went to snake.h and snake.cpp
     // But I didn't know how to make SnakeItems (i could make the snake struct fine)
@@ -82,7 +86,7 @@ int main()
     uLCD.baudrate(115200);
     
     int tick = 0;
-    int lives = 3;
+  
     // 2035TODO
     // Implement the main game loop
     while (1) {

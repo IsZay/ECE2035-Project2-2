@@ -75,6 +75,116 @@ void items_init(void)
     draw_items();
 }
 
+void items_easy_init(void)
+{
+    items = (Items*) malloc(sizeof(Items*));
+    items->items_list = create_dlinkedlist();
+    items->data = NULL;
+
+    for (int i = 0; i < NUM_ITEMS; i++) {
+        Item* item = (Item*) malloc(sizeof(Item));
+        item->type = 1; //1 is fruit, 2 is boost, 3 is poison
+        // item->position.x = rand() % 16;
+        // item->position.y = rand() % 15 + 1;
+        // As you add all 10 items, you might get a collision with the snake or another new item!
+        
+        bool position_ok = false;
+
+        while (!position_ok) {
+            int xCoordinate = rand() % 16; // an x coordinate
+            int yCoordinate = rand() % 15 + 1; // a y coordinate
+
+            // Check if (xCoordinate, yCoordinate) collides with the snake
+            LLNode* currSnake = getHead(get_snake()->snake_list);
+            position_ok = true;
+
+            while (currSnake != NULL) {
+                SnakeItem* currSnakeItem = (SnakeItem*)currSnake->data;
+                if (currSnakeItem->position.x == xCoordinate && currSnakeItem->position.y == yCoordinate) {
+                    position_ok = false;
+                    break;
+                }
+                currSnake = currSnake->next;
+            }
+
+            currSnake = getHead(items->items_list);
+
+            while (currSnake != NULL) {
+                Item* currItem = (Item*)currSnake->data;
+                if (currItem->position.x == xCoordinate && currItem->position.y == yCoordinate) {
+                    position_ok = false;
+                    break;
+                }
+                currSnake = currSnake->next;
+            }
+
+            if (position_ok) {
+                item->position.x = xCoordinate;
+                item->position.y = yCoordinate;
+                break;
+            }
+        }
+        insertTail( (items->items_list) , item);
+    }
+    draw_items();
+}
+
+
+void items_hard_init(void)
+{
+    items = (Items*) malloc(sizeof(Items*));
+    items->items_list = create_dlinkedlist();
+    items->data = NULL;
+
+    for (int i = 0; i < NUM_ITEMS; i++) {
+        Item* item = (Item*) malloc(sizeof(Item));
+        if (i == 0) {
+            item->type = 1;
+        } else {
+            item->type = i % 2 + 2; //1 is fruit, 2 is boost, 3 is poison
+        }
+        
+        bool position_ok = false;
+
+        while (!position_ok) {
+            int xCoordinate = rand() % 16; // an x coordinate
+            int yCoordinate = rand() % 15 + 1; // a y coordinate
+
+            // Check if (xCoordinate, yCoordinate) collides with the snake
+            LLNode* currSnake = getHead(get_snake()->snake_list);
+            position_ok = true;
+
+            while (currSnake != NULL) {
+                SnakeItem* currSnakeItem = (SnakeItem*)currSnake->data;
+                if (currSnakeItem->position.x == xCoordinate && currSnakeItem->position.y == yCoordinate) {
+                    position_ok = false;
+                    break;
+                }
+                currSnake = currSnake->next;
+            }
+
+            currSnake = getHead(items->items_list);
+
+            while (currSnake != NULL) {
+                Item* currItem = (Item*)currSnake->data;
+                if (currItem->position.x == xCoordinate && currItem->position.y == yCoordinate) {
+                    position_ok = false;
+                    break;
+                }
+                currSnake = currSnake->next;
+            }
+
+            if (position_ok) {
+                item->position.x = xCoordinate;
+                item->position.y = yCoordinate;
+                break;
+            }
+        }
+        insertTail( (items->items_list) , item);
+    }
+    draw_items();
+}
+
 
 void items_reset(void)
 {
