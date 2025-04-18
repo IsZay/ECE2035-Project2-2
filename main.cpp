@@ -221,7 +221,7 @@ int main()
             draw_again(7, 3);
             while (1) {
                 inputs = read_inputs(); // get the current buttons
-                if (inputs.left) {
+                if (inputs.left || inputs.right) {
                     break;
                 }
             }
@@ -252,12 +252,12 @@ int main()
             }
         }
         if (inputs.right) {
-            if (page < 10) {
+            if (page < 11) {
                 page++;
             }
         }
     }
-    printf("We ended with page: %d\n", page);
+    // printf("We ended with page: %d\n", page);
     // uLCD.printf("Press any top right button to start do easy mode!\n");
     // uLCD.printf("Press any other to do normal mode!\n");
     // uLCD.locate(0,3);
