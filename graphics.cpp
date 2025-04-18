@@ -12,7 +12,6 @@
 #include "graphics.h"
 #include "globals.h"
 
-
 #define WHITE 0xFFFFFF
 #define BLACK 0x000000
 #define RED   0xFF0000
@@ -126,6 +125,76 @@ const char* death_img =
     "WWWWWWWW";  
 
 
+static const uint32_t poison_data[1][64] = {
+{
+0x00000000, 0xff00ff71, 0xff00ff71, 0xff00ff71, 0xff00ff71, 0x00000000, 0x00000000, 0x00000000, 
+0x00000000, 0x00000000, 0xffff00cf, 0xff00ff71, 0xff00ff71, 0xffff00cf, 0xffff00cf, 0x00000000, 
+0x00000000, 0xffff00cf, 0xffffffff, 0xffff00cf, 0xffff00cf, 0xffff00cf, 0xffffffff, 0xffff00cf, 
+0xffff00cf, 0xffff00cf, 0xffff00cf, 0xffffffff, 0xffff00cf, 0xffffffff, 0xffff00cf, 0xffff00cf, 
+0xffff00cf, 0xffff00cf, 0xffff00cf, 0xffff00cf, 0xffffffff, 0xffff00cf, 0xffff00cf, 0xffff00cf, 
+0xffff00cf, 0xffff00cf, 0xffff00cf, 0xffffffff, 0xffff00cf, 0xffffffff, 0xffff00cf, 0xffff00cf, 
+0x00000000, 0xffff00cf, 0xffffffff, 0xffff00cf, 0xffff00cf, 0xffff00cf, 0xffffffff, 0xffff00cf, 
+0x00000000, 0x00000000, 0xffff00cf, 0xffff00cf, 0xffff00cf, 0xffff00cf, 0xffff00cf, 0x00000000
+}
+};
+
+
+
+static const uint32_t speedboost_data[1][64] = {
+{
+0x00000000, 0xff00ff5b, 0xff00ff5b, 0xff00ff5b, 0xff00ff5b, 0xff00ff5b, 0xff00ff5b, 0x00000000, 
+0xff00ff5b, 0xff00ff5b, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xff00ff5b, 0xff00ff5b, 
+0xff00ff5b, 0x00000000, 0x00000000, 0xfff9ec00, 0xfff9ec00, 0x00000000, 0x00000000, 0xff00ff5b, 
+0xff00ff5b, 0x00000000, 0xfff9ec00, 0x00000000, 0x00000000, 0xfff9ec00, 0x00000000, 0xff00ff5b, 
+0xff00ff5b, 0xfff9ec00, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xfff9ec00, 0xff00ff5b, 
+0xff00ff5b, 0x00000000, 0x00000000, 0xfff9ec00, 0xfff9ec00, 0x00000000, 0x00000000, 0xff00ff5b, 
+0xff00ff5b, 0x00000000, 0xfff9ec00, 0x00000000, 0x00000000, 0xfff9ec00, 0x00000000, 0xff00ff5b, 
+0xff00ff5b, 0xfff9ec00, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xfff9ec00, 0xff00ff5b
+}
+};
+
+static const uint32_t long_data[1][64] = {
+{
+0x00000000, 0x00000000, 0x00000000, 0xff00a2ff, 0xff00a2ff, 0x00000000, 0x00000000, 0x00000000, 
+0x00000000, 0x00000000, 0xff00a2ff, 0xff00a2ff, 0xff00a2ff, 0xff00a2ff, 0x00000000, 0x00000000, 
+0x00000000, 0xff00a2ff, 0xff00a2ff, 0xff00a2ff, 0xff00a2ff, 0xff00a2ff, 0xff00a2ff, 0x00000000, 
+0xff00a2ff, 0xff00a2ff, 0xff00a2ff, 0xff75e5ff, 0xff75e5ff, 0xff00a2ff, 0xff00a2ff, 0xff00a2ff, 
+0xff00a2ff, 0xff00a2ff, 0xff75e5ff, 0xff75e5ff, 0xff75e5ff, 0xff75e5ff, 0xff00a2ff, 0xff00a2ff, 
+0xff00a2ff, 0xff75e5ff, 0xff75e5ff, 0xfffff200, 0xfffff200, 0xff75e5ff, 0xff75e5ff, 0xff00a2ff, 
+0xff00a2ff, 0xff75e5ff, 0xfffff200, 0xfffff200, 0xfffff200, 0xfffff200, 0xff75e5ff, 0xff00a2ff, 
+0xff00a2ff, 0xff75e5ff, 0xfffff200, 0xffff3e00, 0xffff3e00, 0xfffff200, 0xff75e5ff, 0xff00a2ff
+}
+};
+
+static const uint32_t newfruit_data[1][64] = {
+{
+0x00000000, 0xffff6000, 0xffff6000, 0x00000000, 0x00000000, 0xffff6000, 0x00000000, 0x00000000, 
+0xffff6000, 0x00000000, 0xffff6000, 0xffff6000, 0xffff6000, 0xffff6000, 0xffff6000, 0x00000000, 
+0x00000000, 0x00000000, 0x00000000, 0xffff6000, 0xff00ff01, 0x00000000, 0x00000000, 0x00000000, 
+0x00000000, 0x00000000, 0xff00ff01, 0xff00ff01, 0xff00ff01, 0xff00ff01, 0xff00ff01, 0x00000000, 
+0x00000000, 0xff00ff01, 0xff00ff01, 0xffec00ff, 0xff00ff01, 0xffec00ff, 0xff00ff01, 0xff00ff01, 
+0xff00ff01, 0xff00ff01, 0xffec00ff, 0xff00ff01, 0xffec00ff, 0xff00ff01, 0xff00ff01, 0xff00ff01, 
+0xff00ff01, 0xff00ff01, 0xffec00ff, 0xff00ff01, 0xffec00ff, 0xff00ff01, 0xff00ff01, 0x00000000, 
+0x00000000, 0xff00ff01, 0xff00ff01, 0xff00ff01, 0xff00ff01, 0xff00ff01, 0x00000000, 0x00000000
+}
+};
+
+static const uint32_t armor_data[1][64] = {
+{
+0xffd500ff, 0xffff006a, 0xffd500ff, 0xffffd000, 0xffffd000, 0xffd500ff, 0xffff006a, 0xffd500ff, 
+0xffd500ff, 0xffd500ff, 0xffff006a, 0xffd500ff, 0xffd500ff, 0xffff006a, 0xffd500ff, 0xffd500ff, 
+0xffff006a, 0xffd500ff, 0xffffd000, 0xffff006a, 0xffff006a, 0xffffd000, 0xffd500ff, 0xffff006a, 
+0xffd500ff, 0xffff006a, 0xffd500ff, 0xffffd000, 0xffffd000, 0xffd500ff, 0xffff006a, 0xffd500ff, 
+0xffff006a, 0xffffd000, 0xffff006a, 0xffffd000, 0xffffd000, 0xffff006a, 0xffffd000, 0xffff006a, 
+0xffd500ff, 0xffff006a, 0xffffd000, 0xffff006a, 0xffff006a, 0xffffd000, 0xffff006a, 0xffd500ff, 
+0xffffd000, 0xffffd000, 0xffff006a, 0xffff006a, 0xffff006a, 0xffff006a, 0xffffd000, 0xffffd000, 
+0xffd500ff, 0xffffd000, 0xffd500ff, 0xffff006a, 0xffff006a, 0xffd500ff, 0xffffd000, 0xffd500ff
+}
+};
+
+
+/* Piskel data for "PoisonTemp" */
+
 // This takes a location (x,y) and const char* as input, and prints a sprite onto the screen
 void draw_img(int x, int y, const char* img) {
     int colors[CELL_SIZE*CELL_SIZE];
@@ -161,7 +230,8 @@ void draw_img(int x, int y, const char* img) {
 // 2035TODO
 void draw_fruit(int x, int y)
 {
-    draw_img(x,y, fruit_img); // I think this should work
+    draw_img(x,y, fruit_img);
+    wait_us(250);
     // 1. call draw_img OR uLCD.BLIT() to draw a custom sprite that you create
     // 2. OR implement functionality that draws a CELL_SIZExCELL_SIZE square using the uLCD.filled_rectangle function
     // Recall the grid structure of the uLCD screen.
@@ -171,41 +241,65 @@ void draw_fruit(int x, int y)
 
 }
 
+
+
 // 2035TODO
 // the remainder of these functions should be handled the same way as draw_fruit
 void draw_poison(int x, int y)
 {
     draw_img(x,y, poison_img);
+    wait_us(250);
 }
 
 void draw_boost(int x, int y)
 {
     draw_img(x,y,boost_img);
+    wait_us(250);
 }
-
 
 void draw_snake_body(int x, int y)
 {
     draw_img(x,y,snake_body_img);
+    wait_us(250);
 }
 
 void draw_snake_head(int x, int y)
 {
     draw_img(x,y,snake_head_img);
+    wait_us(250);
+    
 }
-
 
 void draw_nothing(int x, int y)
 {
     draw_img(x,y,nothing_img);
+    wait_us(250);
 }
 
 void draw_speed(int x, int y)
 {
-    draw_img(x,y,speed_img);
+    uLCD.BLIT(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, (int *) speedboost_data);
+    wait_us(250);
 }
 
 void draw_death(int x, int y)
 {
-    draw_img(x,y,death_img);
+
+    uLCD.BLIT(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, (int *) poison_data);
+    wait_us(250);
+}
+
+void draw_long(int x, int y) {
+    uLCD.BLIT(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, (int *) long_data);
+    wait_us(250);
+}
+
+void draw_again(int x, int y) {
+    uLCD.BLIT(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, (int *) newfruit_data);
+    wait_us(250);
+}
+
+void draw_armor(int x, int y) {
+    uLCD.BLIT(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, (int *) armor_data);
+    wait_us(250);
 }

@@ -49,6 +49,7 @@ void snake_init()
 
     // Set the previous position of tail as its 
     draw_snake();
+    wait_us(250);
 }
 
 void snake_reset()
@@ -96,6 +97,7 @@ void snake_reset()
     snake->previous_tail_position.y = ((SnakeItem*) (getTail(snake->snake_list)->data))->position.y;
     
     draw_snake();
+    wait_us(250);
 }
 
 
@@ -144,6 +146,7 @@ void move_snake() {
         oldNextY = oldLocY; // Store Index 1's y
         
         currSnake = currSnake->next;
+        wait_us(250);
     }
 
     // YES HE MOVES!!!!
@@ -151,7 +154,7 @@ void move_snake() {
     
     snake->previous_tail_position.x = ((SnakeItem*) (getTail(snake->snake_list)->data))->position.x;
     snake->previous_tail_position.y = ((SnakeItem*) (getTail(snake->snake_list)->data))->position.y;
-
+    wait_us(250);
 }
 
 // 2035TODO
@@ -199,6 +202,7 @@ void grow_snake()
     
     insertTail(SnakeDLL, newItem);
     snake->length++;    
+    wait_us(250);
 }
 
 // 2035TODO
@@ -214,6 +218,7 @@ void draw_snake(void) {
             draw_snake_body(currSnakeItem->position.x, currSnakeItem->position.y);
         }
         currItem = currItem->next;
+        wait_us(250);
     }
 }
 

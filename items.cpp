@@ -29,10 +29,10 @@ void items_init(void)
 
     for (int i = 0; i < NUM_ITEMS; i++) {
         Item* item = (Item*) malloc(sizeof(Item));
-        if (i < 5) {
+        if (i < 3) {
             item->type = 1;
         } else {
-            item->type = i % 4 + 2; //1 is fruit, 2 is boost, 3 is poison, 4 is speed speed, 5 is death-death
+            item->type = i % 7 + 2; //1 is fruit, 2 is boost, 3 is poison, 4 is speed speed, 5 is death-death, 6 is long, 7 is newFruit, 8 is armor
         }
         // item->position.x = rand() % 16;
         // item->position.y = rand() % 15 + 1;
@@ -91,7 +91,7 @@ void items_easy_init(void)
         // item->position.x = rand() % 16;
         // item->position.y = rand() % 15 + 1;
         // As you add all 10 items, you might get a collision with the snake or another new item!
-        
+
         bool position_ok = false;
 
         while (!position_ok) {
@@ -144,8 +144,10 @@ void items_hard_init(void)
         Item* item = (Item*) malloc(sizeof(Item));
         if (i == 0) {
             item->type = 1;
+        } else if (i % 2) {
+            item->type = 3; //1 is fruit, 2 is boost, 3 is poison
         } else {
-            item->type = i % 2 + 2; //1 is fruit, 2 is boost, 3 is poison
+            item->type = 5;
         }
 
         bool position_ok = false;
@@ -192,7 +194,6 @@ void items_hard_init(void)
 
 void items_reset(void)
 {
-
     LLNode* currNode = getHead(items->items_list);
     for (int i = 0; i < NUM_ITEMS; i++) {
         replace_item(currNode);
@@ -232,7 +233,7 @@ bool check_item_collision() {
 
             } else if (currItem->type == 2) {
                 // draw Boost
-                get_snake()->boosted += 5;
+                get_snake()->boosted += 10;
                 // printf("You are trying to boost, but I don't know how to make you\n");
                 // draw_boost(currItem->position.x, currItem->position.y);
                 // draw_nothing(currItem->position.x, currItem->position.y); // I have no idea how to use that function pointer in items.h struct
@@ -254,13 +255,39 @@ bool check_item_collision() {
 
             } else if (currItem->type == 4) {
                 // Fast-Fast fruit
-                items->data += 20;
+                items->data += 14;
                 draw_snake_head(currSnakeHead->position.x, currSnakeHead->position.y);
                 replace_item(currNode);
-            } else {
+            } else if (currItem->type == 5) {
                 // When implementing a game ending poison, return 1
-                printf("Ate unknown fruit as of right now?!");
+                // You ate death!
                 return 1;
+            } else if (currItem->type == 6) {
+                // increase tail length by 3 but not score
+                grow_snake();
+                wait_us(80);
+                grow_snake();
+                wait_us(80);
+                grow_snake();
+                wait_us(80);
+                draw_snake_head(currSnakeHead->position.x, currSnakeHead->position.y);
+                replace_item(currNode);
+            } else if (currItem->type == 7) {
+                // draw new fruit
+                get_snake()->score++;
+                if (get_snake()->boosted) {
+                    get_snake()->score++;
+                }
+                grow_snake();
+                // draw_nothing(currItem->position.x, currItem->position.y);
+                draw_snake_head(currSnakeHead->position.x, currSnakeHead->position.y);
+                replace_item(currNode);
+            } else if (currItem->type == 8) {
+                // draw Armor
+                // draw_nothing(currItem->position.x, currItem->position.y); // I have no idea how to use that function pointer in items.h struct
+                draw_snake_head(currSnakeHead->position.x, currSnakeHead->position.y);
+                replace_item(currNode);
+
             }
         }
         currNode = currNode->next;
@@ -322,6 +349,21 @@ void replace_item(LLNode* current_item) {
     } else if (((Item*)current_item->data)->type == 3) {
         // draw Poison
         draw_poison(((Item*)current_item->data)->position.x, ((Item*)current_item->data)->position.y);
+    } else if (((Item*)current_item->data)->type == 4) {
+        // draw Speed
+        draw_speed(((Item*)current_item->data)->position.x, ((Item*)current_item->data)->position.y);
+    } else if (((Item*)current_item->data)->type == 5) {
+        // draw death
+        draw_death(((Item*)current_item->data)->position.x, ((Item*)current_item->data)->position.y);
+    } else if (((Item*)current_item->data)->type == 6) {
+        // draw long
+        draw_long(((Item*)current_item->data)->position.x, ((Item*)current_item->data)->position.y);
+    } else if (((Item*)current_item->data)->type == 7) {
+        // draw new fruit
+        draw_again(((Item*)current_item->data)->position.x, ((Item*)current_item->data)->position.y);
+    } else if (((Item*)current_item->data)->type == 8) {
+        // draw armor
+        draw_armor(((Item*)current_item->data)->position.x, ((Item*)current_item->data)->position.y);
     }
 }
 
@@ -349,10 +391,19 @@ void draw_items(void) {
         } else if (currItem->type == 5) {
             // draw death death fruit
             draw_death(currItem->position.x, currItem->position.y);
+        } else if (currItem->type == 6) {
+            // draw death death fruit
+            draw_long(currItem->position.x, currItem->position.y);
+        } else if (currItem->type == 7) {
+            // draw new fruit
+            draw_again(currItem->position.x, currItem->position.y);
+        } else if (currItem->type == 8) {
+            // draw new fruit
+            draw_armor(currItem->position.x, currItem->position.y);
         }
 
         currNode = currNode->next;
-
+        wait_us(250);
     }
 }
 

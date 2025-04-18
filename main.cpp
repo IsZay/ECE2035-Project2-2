@@ -34,30 +34,252 @@ int main()
     Timer t;
     t.start();
 
-    // This is the text that prints on the start screen
-    uLCD.printf("Press any leftmost button to start on hard mode!\n");
-    uLCD.printf("Press any top right button to start do easy mode!\n");
-    uLCD.printf("Press any other to do normal mode!\n");
-    uLCD.locate(0,3);
+    // This is the text that prints on the start screen'
+    int page = 3;
+    // uLCD.locate(0,5);
+    // uLCD.printf("SNAKE\n");
+    // uLCD.printf("Welcome, scroll right to see all sprites\n");
+    // uLCD.printf("Or left to  choose game difficulty\n");
+    while (page >= 0) {
+        inputs = read_inputs(); // get the current buttons
+        wait_us(250);
+        if (page == 0) {
+            // You are on the Hard mode select
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(4,3);
+            uLCD.printf("HARD MODE\n");
+            uLCD.printf("Only one life\nOnly one fruit,\nthe rest poison\nand death fruits\n");
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.right) {
+                    break;
+                }
+                if (inputs.center) {
+                    page = -3;
+                    srand(t.elapsed_time().count()); // this line sets the random seed
+                    break;
+                }
+            }
+        } else if (page == 1) {
+            // You are on medium page
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(3,3);
+            uLCD.printf("NORMAL MODE\n");
+            uLCD.printf("3 lives\nAll fruits available\n");
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+                if (inputs.center) {
+                    page = -2;
+                    srand(t.elapsed_time().count()); // this line sets the random seed
+                    break;
+                }
+            }
+        } else if (page == 2) {
+            // You are on easy mode
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(4,3);
+            uLCD.printf("EASY MODE\n");
+            uLCD.printf("5 lives\nOnly FRUIT\n");
+
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+                if (inputs.center) {
+                    page = -1;
+                    srand(t.elapsed_time().count()); // this line sets the random seed
+                    break;
+                }
+            }
+
+        } else if (page == 3) {
+            // You are on the main page
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(5,3);
+            uLCD.printf("SNAKE\n\n\n");
+            uLCD.printf("Welcome\nScroll right to\nsee all sprites\n\n");
+            uLCD.printf("Or left to choose\ngame difficulty\n");
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+            }
+            
+        } else if (page == 4) {
+            // You are showing the fruit sprite
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(6,7);
+            uLCD.printf("FRUIT\n\n\n");
+            uLCD.printf("Adds score and\n");
+            uLCD.printf("length by 1\n");
+            draw_fruit(7, 3);
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+            }
+            
+        } else if (page == 5) {
+            // You are showing the boost sprite
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(6,7);
+            uLCD.printf("BOOST\n\n\n");
+            uLCD.printf("Doubles amount\n");
+            uLCD.printf("recieved by fruits\n");
+            draw_boost(7, 3);
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+            }
+
+        } else if (page == 6) {
+            // You are showing the poison sprite
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(6,7);
+            uLCD.printf("POISON\n\n\n");
+            uLCD.printf("Decreases score\nby 1 but will\n");
+            uLCD.printf("increase length\nby 1\n");
+            draw_poison(7, 3);
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+            }
+
+        } else if (page == 7) {
+            // You are showing the slow sprite
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(6,7);
+            uLCD.printf("SLOW\n\n\n");
+            uLCD.printf("Decreases speed\n");
+            draw_speed(7, 3);
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+            }
+
+        } else if (page == 8) {
+            // You are showing the death sprite
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(6,7);
+            uLCD.printf("DEATH\n\n\n");
+            uLCD.printf("Takes life away\n");
+            draw_death(7, 3);
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+            }
+
+        } else if (page == 9) {
+            // You are showing the long sprite
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(6,7);
+            uLCD.printf("LONG\n\n\n");
+            uLCD.printf("Increases the\n");
+            uLCD.printf("length by 3\n");
+            draw_long(7, 3);
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left || inputs.right) {
+                    break;
+                }
+            }
+
+        } else if (page == 10) {
+            // You are showing the green fruit item
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(6,7);
+            uLCD.printf("FRUIT?\n\n\n");
+            uLCD.printf("Same as FRUIT\n");
+            uLCD.printf("Or is it?\n\n\n");
+            uLCD.printf("It is\n");
+
+            draw_again(7, 3);
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left) {
+                    break;
+                }
+            }
+
+        } else if (page == 11) {
+            // You are showing the armor
+            wait_us(75000);
+            uLCD.cls();
+            uLCD.locate(6,7);
+            uLCD.printf("ARMOR\n\n\n");
+            uLCD.printf("Supposed to protect\n");
+            uLCD.printf("But ran out of\n");
+            uLCD.printf("Advanced Fruits\nSo don't count on it\n");
+
+            draw_armor(7, 3);
+            while (1) {
+                inputs = read_inputs(); // get the current buttons
+                if (inputs.left) {
+                    break;
+                }
+            }
+        }
+        
+
+        if (inputs.left) {
+            if (page) {
+                page--;
+            }
+        }
+        if (inputs.right) {
+            if (page < 10) {
+                page++;
+            }
+        }
+    }
+    printf("We ended with page: %d\n", page);
+    // uLCD.printf("Press any top right button to start do easy mode!\n");
+    // uLCD.printf("Press any other to do normal mode!\n");
+    // uLCD.locate(0,3);
     // uLCD.printf("hint: implement read_inputs().\n");
     // printf("The beginning ran!\n");
 
     // This loop is for the start screen
     // While the user has not provided an input, the game should remain on the start screen
-    while(1){
-        // 2035TODO
-        // you need to implement read_inputs to get past the start screen!!
-        inputs = read_inputs(); // get the current buttons
-        // wait_us(1000000);
-        // printf("b1: %d\n", inputs.b1); // The one thats barely holding on
-        // printf("b2: %d\n", inputs.b2);
-        // printf("b3: %d\n", inputs.b3);
-        // printf("b4: %d\n", inputs.b4);
-        if (inputs.up || inputs.down || inputs.right || inputs.left || inputs.center || inputs.b1 || inputs.b2 || inputs.b3 || inputs.b4) {
-            srand(t.elapsed_time().count()); // this line sets the random seed
-            break;
-        }
-    }
+    // while(1){
+    //     // 2035TODO
+    //     // you need to implement read_inputs to get past the start screen!!
+    //     inputs = read_inputs(); // get the current buttons
+    //     // wait_us(1000000);
+    //     // printf("b1: %d\n", inputs.b1); // The one thats barely holding on
+    //     // printf("b2: %d\n", inputs.b2);
+    //     // printf("b3: %d\n", inputs.b3);
+    //     // printf("b4: %d\n", inputs.b4);
+    //     if (inputs.up || inputs.down || inputs.right || inputs.left || inputs.center || inputs.b1 || inputs.b2 || inputs.b3 || inputs.b4) {
+            
+    //         break;
+    //     }
+    // }
 
     uLCD.cls();
 
@@ -65,11 +287,11 @@ int main()
     // initialize the Snake and the Items
     snake_init(); // They return nothing, so don't bother doing Snake theSnake = snake_init()
     int lives;
-    if (inputs.b4) {
+    if (page == -3) {
         // You wanted hard mode!
         items_hard_init();
         lives = 1;
-    } else if (inputs.b2) {
+    } else if (page == -1) {
         // You wanted easy mode!
         items_easy_init();
         lives = 5;
@@ -94,12 +316,12 @@ int main()
     
         while(1)
         {
-            printf("b1: %d \n",inputs.b1);
+            // printf("b1: %d \n",inputs.b1);
             if (get_items()->data) {
-                // Move faster
-                wait_us(10000);
+                // Move faster or slower?
+                wait_us(100000);
             } else {
-                wait_us(30000);
+                wait_us(20000);
             }
             // wait_us(40000); // Recovery time 
             // wait_us(4000000); // Recovery time  
@@ -135,7 +357,7 @@ int main()
                 // 2. print the score and the snake's 'boosted' value at the top of the screen
                     // check out uLCD.locate() and uLCD.printf()
                 uLCD.locate(0, 0); // I hope thats a good location
-                uLCD.printf("Score:%d Bst:%d Spd:%d", get_snake()->score, get_snake()->boosted, get_items()->data); // make score variable
+                uLCD.printf("SCR:%d B:%d S:%d", get_snake()->score, get_snake()->boosted, get_items()->data); // make score variable
                 
 
 
@@ -143,6 +365,7 @@ int main()
                     // self collision
                     // item collision
                     // wall colliison
+                wait_us(5000);
                 if (check_self_collision()) {
                     //Game ending collision
                     // uLCD.cls();
@@ -190,6 +413,7 @@ int main()
                     get_snake()->direction = LEFT; 
                 }
 
+                wait_us(5000);
                 // 6. move the snake (you might not want the snake to move every loop)
                 if (tick % 2 == 0) {
                     move_snake();
@@ -203,16 +427,27 @@ int main()
             }
             tick++;
             t.reset();
+            wait_us(5000);
         }
+        if (get_snake()->score >= 10) {
+            break;
+        }
+
         lives--;
         if (!lives || get_snake()->score >= 10) {
+            // Game ending collision
+            uLCD.cls();
+            uLCD.locate(0, 3);
+            uLCD.printf("GAME OVER");
             break;
         }
         uLCD.cls();
         uLCD.printf("You have %d lives left!\n", lives);
-        wait_us(5000000); // wait 5 seconds 
+        wait_us(5000000); // wait 5 seconds
+        uLCD.cls(); 
         snake_reset();
         items_reset();
+
     }
 
     printf("out of main loop\n");

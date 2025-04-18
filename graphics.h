@@ -21,5 +21,7 @@ void draw_snake_head(int x, int y);
 void draw_nothing(int x, int y);
 void draw_speed(int x, int y);
 void draw_death(int x, int y);
- 
+void draw_long(int x, int y);
+void draw_again(int x, int y);
+void draw_armor(int x, int y);
 #endif // GRAPHICS_H
